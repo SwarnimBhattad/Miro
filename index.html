@@ -1,0 +1,37 @@
+<!DOCTYPE html>
+<html>
+<head>
+    <title>Miro + Zoom Bridge</title>
+    <script src="https://miro.com/app/static/boardsPicker.1.0.js"></script>
+</head>
+<body style="font-family: sans-serif; text-align: center; padding-top: 50px; background-color: #f4f4f9;">
+    <h1>Miro Board Picker</h1>
+    <p>Use this button to select a board for your Zoom meeting.</p>
+    
+    <button id="miro-btn" style="background-color: #4262ff; color: white; padding: 15px 30px; border: none; border-radius: 5px; cursor: pointer; font-size: 16px;">
+        Select Miro Board
+    </button>
+
+    <div id="miro-container" style="margin-top: 30px; border: 1px solid #ddd; min-height: 400px; display: none;">
+        </div>
+
+    <script>
+        document.getElementById('miro-btn').onclick = function() {
+            miroBoardsPicker.open({
+                clientId: '3458764667066621910', // Your actual Client ID
+                action: 'access-link',
+                success: (data) => {
+                    console.log('Board Selected:', data);
+                    const container = document.getElementById('miro-container');
+                    container.style.display = 'block';
+                    container.innerHTML = data.embedHtml;
+                },
+                error: (err) => {
+                    console.error('Picker Error:', err);
+                    alert('Error opening picker. Check console for details.');
+                }
+            });
+        };
+    </script>
+</body>
+</html>
